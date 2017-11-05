@@ -9,8 +9,9 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "vue": "^2.4.4",
-    "bulma": "^0.6.0"
+    "bulma": "^0.6.0",
+    "bulma-switch": "0.0.4",
+    "vue": "^2.4.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
