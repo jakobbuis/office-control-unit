@@ -10,7 +10,7 @@
 
         <div class="container">
             <div class="tile is-ancestor">
-                <div class="tile is-5">
+                <div class="tile is-3">
                     <klimaat></klimaat>
                 </div>
                 <div class="tile is-9">

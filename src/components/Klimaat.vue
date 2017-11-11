@@ -12,7 +12,6 @@
                         </div>
                     </td>
                     <td>Maaskamer</td>
-                    <td class="indicator"><span class="colour"></span></td>
                 </tr>
                 <tr>
                     <td>
@@ -22,7 +21,6 @@
                         </div>
                     </td>
                     <td>Podiumkamer</td>
-                    <td class="indicator"><span class="colour"></span></td>
                 </tr>
                 <tr>
                     <td>
@@ -32,7 +30,6 @@
                         </div>
                     </td>
                     <td>Spreekkamer</td>
-                    <td class="indicator"><span class="colour"></span></td>
                 </tr>
             </tbody>
         </table>
@@ -47,18 +44,5 @@ export default {
 <style scoped>
 .table {
     margin-bottom: 0;
-}
-
-.colour {
-    display: block;
-    background-color: red;
-    width: 1.5em;
-    height: 1.5em;
-    border-radius: 50%;
-    margin: 0 auto;
-}
-
-.indicator {
-    padding: 0;
 }
 </style>
