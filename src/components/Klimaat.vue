@@ -37,7 +37,9 @@ export default {
     created() {
         const socket = new WebSocket('ws://localhost:5546/chat');
         socket.onmessage = (message) => {
-            this.rooms = JSON.parse(message.data);
+            this.rooms = JSON.parse(message.data).sort((a, b) => {
+                return a.room.localeCompare(b.room);
+            });
         };
         socket.onerror = (message) => {
             this.connected = false;
