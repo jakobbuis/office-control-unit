@@ -10,15 +10,7 @@
 
         <table class="table is-striped is-narrow is-fullwidth" v-if="connected">
             <tbody>
-                <tr v-for="room in rooms">
-                    <td>
-                        <div class="field">
-                            <input :id="room.room" type="checkbox" :name="room.room" class="switch is-rounded is-rtl" :checked="room.endOverride != null">
-                            <label :for="room.room"></label>
-                        </div>
-                    </td>
-                    <td>{{ room.room }}</td>
-                </tr>
+                <room v-for="room in rooms" key="room.room"></room>
             </tbody>
         </table>
     </div>
