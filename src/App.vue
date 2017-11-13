@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Klimaat from './components/Klimaat.vue';
+import Klimaat from './components/Klimaat/Klimaat.vue';
 import PublicAddress from './components/PublicAddress.vue';
 
 export default {
