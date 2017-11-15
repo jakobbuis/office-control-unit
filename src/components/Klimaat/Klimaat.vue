@@ -27,7 +27,7 @@ export default {
     },
 
     created() {
-        const socket = new WebSocket('ws://localhost:5546/chat');
+        const socket = new WebSocket('ws://klimaat:5546');
         socket.onmessage = (message) => {
             this.rooms = JSON.parse(message.data).sort((a, b) => {
                 return a.room.localeCompare(b.room);
