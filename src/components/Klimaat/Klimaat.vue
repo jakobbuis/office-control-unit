@@ -10,14 +10,18 @@
 
         <table class="table is-striped is-narrow is-fullwidth" v-if="connected">
             <tbody>
-                <room v-for="room in rooms" key="room.room" @override="updateOverride"></room>
+                <room v-for="room in rooms" :room="room" key="room.room" @override="updateOverride"></room>
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
+import Room from './Room.vue';
+
 export default {
+
+    components: { Room },
 
     data() {
         return {
