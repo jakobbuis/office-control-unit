@@ -2,7 +2,7 @@
     <tr>
         <td>
             <div class="field">
-                <input :id="room.room" type="checkbox" :name="room.room" class="switch is-rounded is-rtl" :checked="room.endOverride != null" @change="updateOverride">
+                <input :id="room.room" type="checkbox" :name="room.room" class="switch is-rounded is-rtl" :checked="room.endOverride == null" @change="updateOverride">
                 <label :for="room.room"></label>
             </div>
         </td>
