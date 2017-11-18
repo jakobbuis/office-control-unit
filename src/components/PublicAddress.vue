@@ -1,7 +1,13 @@
 <template>
     <div class="box">
         <h2>Sonos public address system</h2>
-        <div class="content">
+
+        <div class="notification is-danger" v-if="!connected">
+            Verbinding maken met de SONOS API is mislukt. Heb je wel verbinding met
+            de IN10-WiFi?
+        </div>
+
+        <div class="content" v-if="connected">
             <form action="#" @submit.prevent="address">
                 <div class="field has-addons">
                     <p class="control">
@@ -41,6 +47,7 @@ export default {
             message: '',
             status: null,
             lastError: null,
+            connected: true,
         };
     },
 
@@ -76,7 +83,7 @@ export default {
                 return zone.coordinator.roomName;
             });
             this.selectedZone = this.zones[0];
-        });
+        }).catch(() => this.connected = false);
     },
 
     methods: {
