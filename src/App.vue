@@ -50,6 +50,11 @@ export default {
         padding: 0.25em 0.5em;
         color: white;
     }
-}
 
+    &> .notification {
+        padding: 0.5em 1em 0 1em;
+        border-radius: 0;
+        height: 100%;
+    }
+}
 </style>

@@ -62,9 +62,4 @@ export default {
 .table {
     margin-bottom: 0;
 }
-
-.notification {
-    padding: 1em;
-    border-radius: 0;
-}
 </style>
