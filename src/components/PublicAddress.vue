@@ -12,7 +12,7 @@
                         </span>
                     </p>
                     <p class="control is-expanded">
-                        <input class="input" type="text" placeholder="Message" v-model="message" @keyup="clearStatus">
+                        <input class="input" type="text" placeholder="Message" v-model="message">
                     </p>
                     <p class="control">
                         <button type="submit" class="button is-primary">Send</button>
@@ -97,11 +97,6 @@ export default {
                 }
             });
         },
-
-        clearStatus() {
-            this.status = null;
-            this.lastError = null;
-        }
     },
 };
 </script>
