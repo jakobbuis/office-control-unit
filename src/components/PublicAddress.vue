@@ -1,24 +1,20 @@
 <template>
     <div class="box">
         <h2>Sonos public address system</h2>
-        <form action="#">
+        <form action="#" @submit.prevent="address">
             <div class="field has-addons">
                 <p class="control">
                     <span class="select">
-                        <select>
-                            <option>Activate</option>
-                            <option>Developers</option>
-                            <option>Producers</option>
+                        <select v-model="selectedZone">
+                            <option v-for="zone in zones">{{ zone }}</option>
                         </select>
                     </span>
                 </p>
                 <p class="control is-expanded">
-                    <input class="input" type="text" placeholder="Message">
+                    <input class="input" type="text" placeholder="Message" v-model="message">
                 </p>
                 <p class="control">
-                    <a class="button is-primary">
-                        Send
-                    </a>
+                    <button type="submit" class="button is-primary">Send</button>
                 </p>
             </div>
         </form>
@@ -26,8 +22,34 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 
+    data() {
+        return {
+            zones: [],
+            selectedZone: null,
+            message: '',
+        };
+    },
+
+    created() {
+        axios.get('http://klimaat:5005/zones').then((response) => {
+            this.zones = response.data.map((zone) => {
+                return zone.coordinator.roomName;
+            });
+            this.selectedZone = this.zones[0];
+        });
+    },
+
+    methods: {
+        address() {
+            const zone = encodeURIComponent(this.selectedZone);
+            const message = encodeURIComponent(`Mededeling: ${this.message}. Herhaling: ${this.message}`);
+            axios.get(`http://klimaat:5005/${zone}/say/${message}/nl`);
+        }
+    },
 };
 </script>
 
