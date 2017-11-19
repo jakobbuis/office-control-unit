@@ -1,35 +1,26 @@
 <template>
-    <div class="box">
-        <h2>Sonos public address system</h2>
-
-        <div class="notification is-danger" v-if="!connected">
-            Verbinding maken met de SONOS API is mislukt. Heb je wel verbinding met
-            de IN10-WiFi?
-        </div>
-
-        <div class="content" v-if="connected">
-            <form action="#" @submit.prevent="address">
-                <div class="field has-addons">
-                    <p class="control">
-                        <span class="select">
-                            <select v-model="selectedZone">
-                                <option v-for="zone in zones">{{ zone }}</option>
-                            </select>
-                        </span>
-                    </p>
-                    <p class="control is-expanded">
-                        <input class="input" type="text" placeholder="Message" v-model="message">
-                    </p>
-                    <p class="control">
-                        <button type="submit" class="button is-primary">Send</button>
-                    </p>
-                </div>
-            </form>
-            <div class="status" v-if="status != null">
-                <div>
-                    <i class="fa fa-fw" :class="statusClass"></i>
-                    {{ statusMessage }}
-                </div>
+    <div class="content">
+        <form action="#" @submit.prevent="address">
+            <div class="field has-addons">
+                <p class="control">
+                    <span class="select">
+                        <select v-model="selectedZone">
+                            <option v-for="zone in zones">{{ zone }}</option>
+                        </select>
+                    </span>
+                </p>
+                <p class="control is-expanded">
+                    <input class="input" type="text" placeholder="Message" v-model="message">
+                </p>
+                <p class="control">
+                    <button type="submit" class="button is-primary">Send</button>
+                </p>
+            </div>
+        </form>
+        <div class="status" v-if="status != null">
+            <div>
+                <i class="fa fa-fw" :class="statusClass"></i>
+                {{ statusMessage }}
             </div>
         </div>
     </div>
@@ -47,7 +38,6 @@ export default {
             message: '',
             status: null,
             lastError: null,
-            connected: true,
         };
     },
 
@@ -83,7 +73,7 @@ export default {
                 return zone.coordinator.roomName;
             });
             this.selectedZone = this.zones[0];
-        }).catch(() => this.connected = false);
+        }).catch(() => this.$parent.$emit('connection', false));
     },
 
     methods: {
