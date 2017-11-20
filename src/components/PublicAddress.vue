@@ -80,7 +80,7 @@ export default {
         address() {
             this.status = 'sending';
 
-            const volume = 30;
+            const volume = 40;
             const zone = encodeURIComponent(this.selectedZone);
             const message = encodeURIComponent(`${this.message}. Herhaling: ${this.message}.`);
 
