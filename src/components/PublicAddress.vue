@@ -79,19 +79,26 @@ export default {
     methods: {
         address() {
             this.status = 'sending';
+
+            const volume = 30;
             const zone = encodeURIComponent(this.selectedZone);
-            const message = encodeURIComponent(`Mededeling: ${this.message}. Herhaling: ${this.message}`);
-            axios.get(`http://klimaat:5005/${zone}/say/${message}/nl`).then((response) => {
-                this.status = response.data.status;
-            }).catch((error) => {
-                if (error.response) {
-                    this.status = error.response.data.status;
-                    this.lastError = error.response.data.error;
-                }
-                else {
-                    this.status = 'error';
-                    this.lastError = 'unknown error occurred';
-                }
+            const message = encodeURIComponent(`${this.message}. Herhaling: ${this.message}.`);
+
+            // Play NS sound
+            axios.get(`http://klimaat:5005/${zone}/clip/ns.mp3/${volume}`).then(() => {
+                // Play message
+                axios.get(`http://klimaat:5005/${zone}/say/${message}/nl/${volume}`).then((response) => {
+                    this.status = response.data.status;
+                }).catch((error) => {
+                    if (error.response) {
+                        this.status = error.response.data.status;
+                        this.lastError = error.response.data.error;
+                    }
+                    else {
+                        this.status = 'error';
+                        this.lastError = 'unknown error occurred';
+                    }
+                });
             });
         },
     },
