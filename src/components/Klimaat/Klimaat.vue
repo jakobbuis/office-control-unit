@@ -1,19 +1,9 @@
 <template>
-    <div class="box">
-        <h2>Meeting room lights</h2>
-
-        <div class="notification is-danger" v-if="!connected">
-            Verbinding maken met klimaat is mislukt. Heb je wel verbinding met
-            de IN10-WiFi?
-        </div>
-
-
-        <table class="table is-striped is-narrow is-fullwidth" v-if="connected">
-            <tbody>
-                <room v-for="room in rooms" :room="room" key="room.room" @override="updateOverride"></room>
-            </tbody>
-        </table>
-    </div>
+    <table class="table is-striped is-narrow is-fullwidth">
+        <tbody>
+            <room v-for="room in rooms" :room="room" key="room.room" @override="updateOverride"></room>
+        </tbody>
+    </table>
 </template>
 
 <script>
@@ -26,7 +16,6 @@ export default {
     data() {
         return {
             socket: new WebSocket('ws://klimaat:5546'),
-            connected: true,
             rooms: [],
         };
     },
@@ -38,7 +27,7 @@ export default {
             });
         };
         this.socket.onerror = (message) => {
-            this.connected = false;
+            this.$parent.$emit('connection', false);
         };
     },
 
@@ -62,10 +51,5 @@ export default {
 <style scoped>
 .table {
     margin-bottom: 0;
-}
-
-.notification {
-    padding: 1em;
-    border-radius: 0;
 }
 </style>

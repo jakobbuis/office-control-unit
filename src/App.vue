@@ -11,10 +11,14 @@
         <div class="container">
             <div class="tile is-ancestor">
                 <div class="tile is-3">
-                    <klimaat></klimaat>
+                    <box title="Meeting room lights">
+                        <klimaat></klimaat>
+                    </box>
                 </div>
                 <div class="tile is-9">
-                    <public-address></public-address>
+                    <box title="Sonos public address system">
+                        <public-address></public-address>
+                    </box>
                 </div>
             </div>
         </div>
@@ -23,12 +27,13 @@
 </template>
 
 <script>
+import Box from './components/Box.vue';
 import Klimaat from './components/Klimaat/Klimaat.vue';
 import PublicAddress from './components/PublicAddress.vue';
 
 export default {
     name: 'app',
-    components: {Klimaat, PublicAddress},
+    components: {Box, Klimaat, PublicAddress},
 }
 </script>
 
@@ -39,17 +44,4 @@ export default {
 .tile {
     padding: 1em;
 }
-
-.box {
-    width: 100%;
-    padding: 0;
-
-    h2 { // Component headings
-        font-weight: bold;
-        background-color: #666;
-        padding: 0.25em 0.5em;
-        color: white;
-    }
-}
-
 </style>
