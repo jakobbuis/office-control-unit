@@ -34,13 +34,14 @@ export default {
     methods: {
         updateOverride({name, override}) {
             // Update the right room
-            let target = this.rooms.filter((room) => {
-                return room.room === name;
-            });
-            target.endOverride = override;
+            for (var i = this.rooms.length - 1; i >= 0; i--) {
+                if (this.rooms[i].room === name) {
+                    this.rooms[i].endOverride = override;
+                }
+            }
 
             // Emit the new state
-            const message = JSON.stringify(this.state);
+            const message = JSON.stringify(this.rooms);
             this.socket.send(message);
         }
     },

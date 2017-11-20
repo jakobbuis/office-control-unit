@@ -2,7 +2,7 @@
     <tr>
         <td>
             <div class="field">
-                <input :id="room.room" type="checkbox" :name="room.room" class="switch is-rounded is-rtl" :checked="room.endOverride != null" @change="updateOverride">
+                <input :id="room.room" type="checkbox" :name="room.room" class="switch is-rounded is-rtl" :checked="room.endOverride == null" @change="updateOverride">
                 <label :for="room.room"></label>
             </div>
         </td>
@@ -17,9 +17,11 @@ export default {
 
     methods: {
         updateOverride(event) {
+            const midnight = new Date;
+            midnight.setHours(24, 0, 0, 0);
             this.$emit('override', {
                 name: this.room.room,
-                override: this.room.endOverride ? null : new Date(24,0,0,0),
+                override: this.room.endOverride ? null : midnight,
             });
         }
     },
