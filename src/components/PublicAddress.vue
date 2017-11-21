@@ -75,6 +75,7 @@ export default {
                 return a.localeCompare(b);
             });
             this.selectedZone = this.zones[0];
+            this.zones.push('Alle groepen');
         }).catch(() => this.$parent.$emit('connection', false));
     },
 
@@ -86,22 +87,45 @@ export default {
             const zone = encodeURIComponent(this.selectedZone);
             const message = encodeURIComponent(`${this.message}. Herhaling: ${this.message}.`);
 
-            // Play NS sound
-            axios.get(`http://klimaat:5005/${zone}/clip/ns.mp3/${volume}`).then(() => {
-                // Play message
-                axios.get(`http://klimaat:5005/${zone}/say/${message}/nl/${volume}`).then((response) => {
-                    this.status = response.data.status;
-                }).catch((error) => {
-                    if (error.response) {
-                        this.status = error.response.data.status;
-                        this.lastError = error.response.data.error;
-                    }
-                    else {
-                        this.status = 'error';
-                        this.lastError = 'unknown error occurred';
-                    }
+            if (this.selectedZone === 'Alle groepen') {
+                if (!confirm('Dit stuurt het bericht naar het hele kantoor. Weet je ZEKER dat je dat wilt?')) {
+                    return;
+                }
+                // Play NS sound
+                axios.get(`http://klimaat:5005/clipall/ns.mp3/${volume}`).then(() => {
+                    // Play message
+                    axios.get(`http://klimaat:5005/sayall/${message}/nl/${volume}`).then((response) => {
+                        this.status = response.data.status;
+                    }).catch((error) => {
+                        if (error.response) {
+                            this.status = error.response.data.status;
+                            this.lastError = error.response.data.error;
+                        }
+                        else {
+                            this.status = 'error';
+                            this.lastError = 'unknown error occurred';
+                        }
+                    });
                 });
-            });
+            }
+            else {
+                // Play NS sound
+                axios.get(`http://klimaat:5005/${zone}/clip/ns.mp3/${volume}`).then(() => {
+                    // Play message
+                    axios.get(`http://klimaat:5005/${zone}/say/${message}/nl/${volume}`).then((response) => {
+                        this.status = response.data.status;
+                    }).catch((error) => {
+                        if (error.response) {
+                            this.status = error.response.data.status;
+                            this.lastError = error.response.data.error;
+                        }
+                        else {
+                            this.status = 'error';
+                            this.lastError = 'unknown error occurred';
+                        }
+                    });
+                });
+            }
         },
     },
 };
