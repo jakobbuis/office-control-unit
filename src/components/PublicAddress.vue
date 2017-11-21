@@ -71,6 +71,8 @@ export default {
         axios.get('http://klimaat:5005/zones').then((response) => {
             this.zones = response.data.map((zone) => {
                 return zone.coordinator.roomName;
+            }).sort((a, b) => {
+                return a.localeCompare(b);
             });
             this.selectedZone = this.zones[0];
         }).catch(() => this.$parent.$emit('connection', false));
